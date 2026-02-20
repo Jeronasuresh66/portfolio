@@ -1,10 +1,5 @@
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jerona S | ECE Portfolio</title>
+<!-- Replace ONLY this style block in your previous file -->
 
 <style>
 * {
@@ -22,7 +17,10 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.08; /* Watermark effect */
+
+    /* Brighter background */
+    opacity: 0.25;              /* Increased from 0.08 */
+    filter: contrast(1.2) brightness(1.1);
 }
 
 /* Page styling */
@@ -85,7 +83,6 @@ section h3 {
     gap: 15px;
 }
 
-/* Lists */
 ul {
     margin-left: 20px;
 }
@@ -94,7 +91,6 @@ ul {
     margin: 5px 0;
 }
 
-/* Footer */
 footer {
     text-align: center;
     padding: 30px;
@@ -102,198 +98,4 @@ footer {
     font-size: 14px;
 }
 </style>
-</head>
-<body>
-
-<canvas id="animationCanvas"></canvas>
-
-<div class="container">
-
-<header>
-    <h1>Jerona S</h1>
-    <h2>Electronics and Communication Engineering Student | IoT Enthusiast</h2>
-    <p>
-        Motivated ECE student with a strong interest in IoT, Embedded Systems, and Wireless Communication,
-        seeking opportunities to apply technical knowledge and grow in the field.
-    </p>
-</header>
-
-<section>
-    <h3>About Me</h3>
-    <p>
-        I am a 3rd-year Electronics and Communication Engineering student at Government College of Engineering,
-        Thirunelveli. With a strong academic track record and hands-on project experience in IoT, I am passionate
-        about building innovative solutions using embedded systems and wireless communication technologies.
-    </p>
-    <div class="grid">
-        <p><strong>CGPA:</strong> 8.32</p>
-        <p><strong>Year:</strong> 3rd Year</p>
-        <p><strong>College:</strong> GCE Thirunelveli</p>
-    </div>
-</section>
-
-<section>
-    <h3>Career Objective</h3>
-    <p>
-        To build a career in IoT, Embedded Systems, and core ECE technologies while contributing to innovative
-        engineering solutions. I aim to leverage my academic knowledge and project experience to solve real-world
-        problems and grow as a skilled engineer.
-    </p>
-</section>
-
-<section>
-    <h3>Education</h3>
-    <p><strong>B.E. Electronics and Communication Engineering</strong><br>
-    Government College of Engineering, Thirunelveli (2023 – Present)<br>
-    CGPA: 8.32</p>
-
-    <br>
-
-    <p><strong>Higher Secondary Certificate (HSC)</strong><br>
-    Ponjesly Public Matriculation Higher Secondary School, Nagercoil<br>
-    Score: 568 / 600</p>
-
-    <br>
-
-    <p><strong>SSLC</strong><br>
-    Hebron Matriculation Higher Secondary School, Irulapapuram</p>
-</section>
-
-<section>
-    <h3>Project</h3>
-    <h4>IoT Based Vehicle Tracking System</h4>
-    <p>
-        Designed and developed a real-time vehicle tracking system using GPS and IoT communication.
-        Location data is transmitted to a cloud/server for live monitoring.
-    </p>
-
-    <h4>Key Features</h4>
-    <ul>
-        <li>Real-time GPS tracking</li>
-        <li>IoT data transmission</li>
-        <li>Cloud-based monitoring interface</li>
-    </ul>
-
-    <h4>Applications</h4>
-    <ul>
-        <li>Fleet Management</li>
-        <li>Vehicle Security</li>
-        <li>Real-time Monitoring</li>
-    </ul>
-</section>
-
-<section>
-    <h3>Skills</h3>
-    <div class="grid">
-        <div>
-            <h4>Technical</h4>
-            <ul>
-                <li>C Programming</li>
-                <li>Embedded Systems</li>
-                <li>IoT Fundamentals</li>
-                <li>Arduino / NodeMCU</li>
-                <li>Basic Python</li>
-                <li>Sensors & Interfacing</li>
-                <li>Wireless Communication</li>
-            </ul>
-        </div>
-
-        <div>
-            <h4>Tools</h4>
-            <ul>
-                <li>Arduino IDE</li>
-                <li>Proteus</li>
-                <li>Tinkercad</li>
-                <li>Microsoft Office</li>
-            </ul>
-
-            <h4>Soft Skills</h4>
-            <ul>
-                <li>Problem Solving</li>
-                <li>Teamwork</li>
-                <li>Time Management</li>
-                <li>Communication</li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<section>
-    <h3>Achievements</h3>
-    <ul>
-        <li>Maintaining CGPA of 8.32 in B.E. ECE</li>
-        <li>Scored 568/600 in HSC</li>
-    </ul>
-</section>
-
-<section class="contact">
-    <h3>Contact</h3>
-    <p><strong>Email:</strong> jerona.s@email.com</p>
-    <p><strong>Phone:</strong> +91 XXXXX XXXXX</p>
-    <p><strong>Location:</strong> Tamil Nadu, India</p>
-    <p><strong>LinkedIn:</strong> linkedin.com/in/jerona-s</p>
-    <p><strong>GitHub:</strong> github.com/jerona-s</p>
-</section>
-
-<footer>
-© 2026 Jerona S. All rights reserved.
-</footer>
-
-</div>
-
-<script>
-// Canvas setup
-const canvas = document.getElementById("animationCanvas");
-const ctx = canvas.getContext("2d");
-
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-
-// Load frames
-const totalFrames = 240;
-const images = [];
-
-for (let i = 1; i <= totalFrames; i++) {
-    const img = new Image();
-    const number = String(i).padStart(3, '0');
-    img.src = `Frames/ezgif-frame-${number}.jpg`;
-    images.push(img);
-}
-
-// Draw frame
-function drawFrame(index) {
-    const img = images[index];
-    if (!img) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Center image
-    const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
-    const x = (canvas.width - img.width * scale) / 2;
-    const y = (canvas.height - img.height * scale) / 2;
-
-    ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-}
-
-// Scroll control
-window.addEventListener("scroll", () => {
-    const scrollTop = document.documentElement.scrollTop;
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollFraction = scrollTop / maxScroll;
-    const frameIndex = Math.min(
-        totalFrames - 1,
-        Math.floor(scrollFraction * totalFrames)
-    );
-    drawFrame(frameIndex);
-});
-
-// Initial frame
-images[0].onload = () => drawFrame(0);
-</script>
-
-</body>
-</html>
 ```
