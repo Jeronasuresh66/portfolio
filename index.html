@@ -1,79 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Jerona S | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Jerona Portfolio</title>
+
+<style>
+/* Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Background Canvas */
+#bgCanvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+/* Content wrapper */
+.content{
+    padding:60px 20px;
+}
+
+/* Transparent Glass Container */
+.container{
+    max-width:800px;
+    margin:60px auto;
+    padding:25px;
+    border-radius:15px;
+
+    /* Transparent effect */
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border:1px solid rgba(255,255,255,0.2);
+}
+
+/* Hero */
+.hero{
+    text-align:center;
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+h2{
+    margin-bottom:15px;
+}
+
+p{
+    line-height:1.6;
+}
+
+ul{
+    padding-left:20px;
+}
+
+li{
+    margin-bottom:8px;
+}
+
+/* Smooth scroll */
+html{
+    scroll-behavior:smooth;
+}
+</style>
 </head>
 <body>
 
-<!-- Scroll Animation Section -->
-<section class="animation-section">
-    <canvas id="frameCanvas"></canvas>
-</section>
+<!-- Background Animation -->
+<canvas id="bgCanvas"></canvas>
 
-<!-- Header -->
-<header class="hero">
-    <h1>Jerona S</h1>
-    <h3>Electronics and Communication Engineering Student | IoT Enthusiast</h3>
-    <p>
-        Motivated ECE student with strong interest in IoT, Embedded Systems and Wireless Communication.
-    </p>
-</header>
+<!-- Content -->
+<div class="content">
 
-<!-- About -->
-<section class="section">
-    <h2>About Me</h2>
-    <p>
-        I am a 3rd-year Electronics and Communication Engineering student at Government College of Engineering, Thirunelveli.
-        CGPA: 8.32. Passionate about IoT, embedded systems and wireless technologies.
-    </p>
-</section>
+    <section class="container hero">
+        <h1>Hello, I'm</h1>
+        <h2>Jerona S</h2>
+        <p>Electronics and Communication Engineering Student | IoT Enthusiast</p>
+    </section>
 
-<!-- Education -->
-<section class="section">
-    <h2>Education</h2>
-    <ul>
-        <li>B.E. ECE – GCE Thirunelveli (2023–Present) | CGPA: 8.32</li>
-        <li>HSC – Ponjesly Public School (568/600)</li>
-        <li>SSLC – Hebron Matric School</li>
-    </ul>
-</section>
+    <section class="container">
+        <h2>About Me</h2>
+        <p>
+        I am a 3rd-year Electronics and Communication Engineering student at Government College of Engineering, Thirunelveli. 
+        I have a strong interest in IoT, Embedded Systems, and Wireless Communication and I am looking for opportunities to apply my technical knowledge.
+        </p>
+    </section>
 
-<!-- Project -->
-<section class="section">
-    <h2>Project</h2>
-    <h3>IoT Based Vehicle Tracking System</h3>
-    <p>
-        Real-time GPS tracking system using IoT for vehicle monitoring, security and fleet management.
-    </p>
-</section>
+    <section class="container">
+        <h2>Skills</h2>
+        <ul>
+            <li>Embedded Systems</li>
+            <li>IoT Development</li>
+            <li>Arduino / ESP32</li>
+            <li>HTML, CSS, JavaScript</li>
+        </ul>
+    </section>
 
-<!-- Skills -->
-<section class="section">
-    <h2>Skills</h2>
-    <p>
-        C Programming, Embedded Systems, IoT, Arduino, NodeMCU, Sensors, Wireless Communication, Basic Python
-    </p>
-</section>
+    <section class="container">
+        <h2>Projects</h2>
+        <p>• IoT Based Home Automation</p>
+        <p>• Smart Environmental Monitoring System</p>
+    </section>
 
-<!-- Contact -->
-<section class="section">
-    <h2>Contact</h2>
-    <p>Email: jerona.s@email.com</p>
-    <p>Location: Tamil Nadu, India</p>
-</section>
+    <section class="container">
+        <h2>Contact</h2>
+        <p>Email: yourmail@gmail.com</p>
+    </section>
 
-<!-- Chatbot Button -->
-<div id="chatbot">
-    <div id="chat-header">Resume Assistant</div>
-    <div id="chat-body"></div>
-    <div id="chat-input-area">
-        <input id="userInput" placeholder="Ask about my resume...">
-        <button onclick="sendMessage()">Send</button>
-    </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+// Canvas setup
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+// Frame settings
+const frameCount = 240;
+const currentFrame = index =>
+  `Frames/ezgif-frame-${String(index).padStart(3, '0')}.jpg`;
+
+const images = [];
+const imageSeq = { frame: 0 };
+
+// Preload images
+for(let i=1; i<=frameCount; i++){
+    const img = new Image();
+    img.src = currentFrame(i);
+    images.push(img);
+}
+
+// Draw frame
+function drawImage(){
+    const img = images[imageSeq.frame];
+    if(!img) return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img,0,0,canvas.width,canvas.height);
+}
+
+// First frame load
+images[0].onload = drawImage;
+
+// Scroll animation
+window.addEventListener("scroll", () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollFraction = scrollTop / maxScroll;
+
+    imageSeq.frame = Math.min(
+        frameCount - 1,
+        Math.floor(scrollFraction * frameCount)
+    );
+
+    drawImage();
+});
+</script>
+
 </body>
 </html>
